@@ -171,15 +171,7 @@ This feature exports the selected Anime record into a structured TXT format for 
 
 ---
 
-## 📊 Data Model
 
-```
-Anime
-   │
-   ├────────── Ratings
-   │
-   └────────── Characters
-```
 
 ---
 
@@ -196,42 +188,11 @@ Anime
 
 ---
 
-## 🎯 Learning Outcomes
 
-Through this project, the following SAP technologies were implemented:
-
-- SAP RAP Development
-- ABAP Cloud Programming
-- CDS View Entities
-- Metadata Extensions
-- Behavior Definitions
-- Determinations
-- Validations
-- RAP Actions
-- OData V4
-- SAP Fiori Elements
-- SAP BTP Development
-- Association Modeling
 
 ---
 
-## 📸 Screenshots
 
-> Add your project screenshots here.
-
-Example:
-
-```
-screenshots/
-│
-├── Home.png
-├── ObjectPage.png
-├── DemandBar.png
-├── GenerateTXT.png
-└── CharacterDetails.png
-```
-
----
 
 ## 👨‍💻 Author
 
