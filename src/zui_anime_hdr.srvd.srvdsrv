@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Definition for Anime App'
+define service ZUI_ANIME_HDR {
+  expose ZC_ANIME_HDR  as Anime;
+  expose ZC_ANIME_RTG  as Rating;
+  expose ZC_ANIME_CHAR as Character;
+}

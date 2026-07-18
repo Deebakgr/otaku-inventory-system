@@ -1,0 +1,38 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_ANIME_HDR alias Anime
+{
+  use create;
+  use update;
+  use delete;
+
+  use action MarkAsCompleted;
+  use action GenerateText;
+
+  use action Edit;
+  use action Resume;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use association _Ratings { create; with draft; }
+  use association _Chars { create; with draft; }
+}
+
+define behavior for ZC_ANIME_CHAR alias Character
+{
+  use update;
+  use delete;
+
+  use association _Anime { with draft; }
+}
+
+define behavior for ZC_ANIME_RTG alias Rating
+{
+  use update;
+  use delete;
+
+  use association _Anime { with draft; }
+}

@@ -1,0 +1,143 @@
+
+unmanaged implementation in class zbp_anime_hdr unique;
+strict ( 2 );
+with draft;
+
+// ======================================================================
+// 1. Root Entity: Anime Header
+// ======================================================================
+define behavior for ZI_ANIME_HDR alias Anime
+//implementation in class zbp_anime_hdr unique
+draft table zanime_hdr_d
+lock master total etag LocalLastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+early numbering
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) AnimeId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Ratings { create; with draft; }
+  association _Chars { create; with draft; }
+
+  // Custom Actions
+  action MarkAsCompleted result [1] $self;
+  action GenerateText result [1] $self;
+
+  // Side Effects (UI refresh triggers)
+  side effects {
+    action MarkAsCompleted affects field Status, field Criticality;
+    action GenerateText affects field NoteFile, field MimeType, field FileName;
+  }
+
+  // Draft Actions
+  draft action Edit;
+  draft action Resume;
+  draft action Activate optimized;
+  draft action Discard;
+
+  // Draft Prepare (Executes validations before saving to active table)
+  draft determine action Prepare {
+    validation ValidateTitle;
+    validation Rating~ValidateScores;
+  }
+
+  // Validations & Determinations
+  validation ValidateTitle on save { field Title; create; update; }
+  determination SetDefaultStatus on modify { field Status; create; }
+
+  mapping for zanime_hdr
+  {
+    AnimeId            = anime_id;
+    Title              = title;
+    NoteFile      = note_file;
+    MimeType      = mimetype;
+    FileName      = filename;
+    ImageUrl           = image_url;
+    WatchUrl           = watch_url;
+    Status             = status;
+    Criticality        = criticality;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+// ======================================================================
+// 2. Child Entity: Anime Ratings
+// ======================================================================
+define behavior for ZI_ANIME_RTG alias Rating
+implementation in class zbp_anime_rtg unique
+draft table zanime_rtg_d
+lock dependent by _Anime
+authorization dependent by _Anime
+etag master LocalLastChangedAt
+early numbering
+{
+  update;
+  delete;
+
+  field ( readonly ) RatingId, AnimeId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Anime { with draft; }
+
+  // Validations (e.g., ensuring StarRating is 1-5, Demand is 0-100)
+  validation ValidateScores on save { field StarRating, DemandScore; create; update; }
+
+  // Side Effects: If rating changes, update the Header (useful if you calculate an average later)
+  side effects {
+    field StarRating affects entity _Anime;
+    field DemandScore affects entity _Anime;
+  }
+
+  mapping for zanime_rtg
+  {
+    RatingId           = rating_id;
+    AnimeId            = anime_id;
+    StarRating         = star_rating;
+    DemandScore        = demand_score;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+// ======================================================================
+// 3. Child Entity: Anime Characters
+// ======================================================================
+define behavior for ZI_ANIME_CHAR alias Character
+implementation in class zbp_anime_char unique
+draft table zanime_char_d
+lock dependent by _Anime
+authorization dependent by _Anime
+etag master LocalLastChangedAt
+early numbering
+{
+  update;
+  delete;
+
+  field ( readonly ) CharId, AnimeId, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Anime { with draft; }
+
+  mapping for zanime_char
+  {
+    CharId             = char_id;
+    AnimeId            = anime_id;
+    CharName           = char_name;
+    VoiceActor         = voice_actor;
+    CharImageUrl       = char_image_url;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

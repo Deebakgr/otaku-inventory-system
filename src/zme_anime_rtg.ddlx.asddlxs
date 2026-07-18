@@ -1,0 +1,36 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { typeName: 'Rating',
+                typeNamePlural: 'Ratings' }
+}
+annotate view ZC_ANIME_RTG with 
+{
+  @UI.facet: [ { id: 'RatingDetails', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Rating Details', position: 10 } ]
+
+  @UI.hidden: true
+  RatingId;
+
+  @UI.hidden: true
+  AnimeId;
+
+ 
+  @UI.lineItem: [{ position: 10, label: 'User Rating', type: #AS_DATAPOINT, cssDefault.width: '10rem' }]
+  @UI.identification: [{ position: 10, label: 'User Rating', type: #AS_DATAPOINT }]
+  @UI.dataPoint: { visualization: #RATING, targetValue: 5, title: 'Star Rating' }
+  StarRating;
+
+  
+
+  @UI.lineItem: [{ position: 20, label: 'Demand Chart', type: #AS_DATAPOINT, cssDefault.width: '10rem' }]
+  @UI.identification: [{ position: 20, label: 'Demand Score', type: #AS_DATAPOINT }]
+  @UI.dataPoint: { 
+    visualization: #PROGRESS,
+    targetValue: 100, 
+    
+    
+    criticality: 'DemandCriticality', 
+    
+    title: 'Market Demand' 
+  }
+  DemandScore;
+}

@@ -1,0 +1,35 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { typeName: 'Character',
+                typeNamePlural: 'Characters',
+                title: { type: #STANDARD, value: 'CharName' },
+                imageUrl: 'CharImageUrl' }
+}
+annotate view ZC_ANIME_CHAR with 
+{
+  @UI.facet: [ { id: 'CharDetails', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Character Details', position: 10 } ]
+
+  @UI.hidden: true
+  CharId;
+
+  @UI.hidden: true
+  AnimeId;
+
+  
+  @UI.lineItem: [{ hidden: true }] 
+  @UI.identification: [{ position: 10, label: 'Character Avatar URL' }]
+  CharImageUrl;
+
+  
+  @UI.lineItem: [{ position: 10, label: 'Character Avatar' }]
+  @UI.identification: [{ hidden: true }]
+  CharImageDisplay;
+
+  @UI.lineItem: [{ position: 20, label: 'Character Name' }]
+  @UI.identification: [{ position: 20, label: 'Character Name' }]
+  CharName;
+
+  @UI.lineItem: [{ position: 30, label: 'Voice Actor' }]
+  @UI.identification: [{ position: 30, label: 'Voice Actor' }]
+  VoiceActor;
+}
