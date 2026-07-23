@@ -1,120 +1,3 @@
-//
-//@Metadata.layer: #CORE
-//@UI: {
-//  headerInfo: { typeName: 'Anime',
-//                typeNamePlural: 'Animes',
-//                title: { type: #STANDARD, value: 'Title' },
-//                description: { type: #STANDARD, value: 'Status' }, 
-//                imageUrl: 'ImageUrl' } 
-//}
-//annotate view ZC_ANIME_HDR with 
-//{
-//  @UI.facet: [ 
-//    
-//    { id:              'HeaderDetails',
-//      purpose:         #HEADER,
-//      type:            #FIELDGROUP_REFERENCE,
-//      targetQualifier: 'HeaderInfoGroup',
-//      position:        10 },
-//
-//    { id:              'HeaderStatus',
-//      purpose:         #HEADER,
-//      type:            #DATAPOINT_REFERENCE,
-//      targetQualifier: 'HeaderStatusDP',
-//      position:        20 },
-//      
-//    { id:              'HeaderDemand',
-//      purpose:         #HEADER,
-//      type:            #DATAPOINT_REFERENCE,
-//      targetQualifier: 'HeaderDemandDP',  
-//      position:        30 },
-//
-//    
-//    { id: 'AnimeDetails', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Anime Details', position: 10 },
-//    { id: 'Ratings', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Ratings & Demand', targetElement: '_Ratings', position: 20 },
-//    { id: 'Characters', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Characters', targetElement: '_Chars', position: 30 }
-//  ]
-//
-//  @UI.lineItem: [{ position: 10, label: 'Anime ID' }]
-//  @UI.identification: [{ position: 10, label: 'Anime ID' }]
-//  @UI.fieldGroup: [{ qualifier: 'HeaderInfoGroup', position: 10, label: 'Anime ID' }] 
-//  AnimeId;
-//
-//  @UI.lineItem: [{ position: 20, label: 'Title' }]
-//  @UI.identification: [{ position: 20, label: 'Title' }]
-//  Title;
-//
-//  @UI.lineItem: [{ hidden: true }]
-//  @UI.identification: [{ position: 30, label: 'Anime Poster URL' }]
-//  ImageUrl;
-//
-//  @UI.lineItem: [{ position: 30, label: 'Anime Poster' }]
-//  @UI.identification: [{ hidden: true }]
-//  ImageDisplay;
-// 
-//  @UI.lineItem: [{ position: 40, label: 'Where to Watch', type: #WITH_URL, url: 'WatchUrl' }]
-//  @UI.identification: [{ position: 40, label: 'Where to Watch', type: #WITH_URL, url: 'WatchUrl' }]
-//  @UI.fieldGroup: [{ qualifier: 'HeaderInfoGroup', position: 20, label: 'Where to Watch' }] 
-//  WatchUrl;
-// 
-//  @UI.lineItem: [
-//    { position: 50, label: 'Status', criticality: 'Criticality' },
-//    { type: #FOR_ACTION, dataAction: 'MarkAsCompleted', label: 'Mark as Completed', position: 10 }
-//    { type: #FOR_ACTION, dataAction: 'GenerateText', label: 'Generate Text File', position: 20 }
-//  ]
-//  @UI.identification: [
-//    { position: 50, label: 'Status', criticality: 'Criticality' },
-//    { type: #FOR_ACTION, dataAction: 'MarkAsCompleted', label: 'Mark as Completed', position: 10 }
-//    { type: #FOR_ACTION, dataAction: 'GenerateText', label: 'Generate Text', position: 20 }
-//  ]
-//  @UI.dataPoint: { qualifier: 'HeaderStatusDP', title: 'Anime Status', criticality: 'Criticality' } 
-//  Status;
-//  
-//  @UI.lineItem: [{ position: 60, label: 'Rating', type: #AS_DATAPOINT, cssDefault.width: '10rem', importance: #HIGH }]
-//  @UI.dataPoint: { visualization: #RATING, targetValue: 5, title: 'User Rating' }
-//  StarRating;
-//
-// 
-//  @UI.lineItem: [{ position: 70, label: 'Demand', type: #AS_DATAPOINT, cssDefault.width: '10rem', importance: #HIGH, valueQualifier: 'HeaderDemandDP' }]
-//  
-//
-//  @UI.lineItem: [{ hidden: true }]
-//  DemandCriticality;
-//  
-// 
-//  @UI.lineItem: [{ position: 70, label: 'Demand', type: #AS_DATAPOINT, cssDefault.width: '10rem', importance: #HIGH }]
-//  @UI.dataPoint: { 
-//    visualization: #PROGRESS,
-//    targetValue: 100, 
-//    criticality: 'DemandCriticality', 
-//    title: 'Market Demand' 
-//  }
-//  DemandScore;
-//
-//  @UI.lineItem: [{ hidden: true }]
-//  @UI.dataPoint: { 
-//    qualifier: 'HeaderDemandDP',
-//    visualization: #PROGRESS,
-//    targetValue: 100, 
-//    criticality: 'DemandCriticality', 
-//    title: 'Market Demand' 
-//  }
-//  HeaderDemandScore;
-//  
-//  @UI.hidden: true
-//  Criticality;
-//  
-//  @UI.identification: [{ position: 60, label: 'Download Summary' }]
-//  NoteFile;
-//  
-//  @UI.hidden: true
-//  MimeType;
-//  
-//  @UI.hidden: true
-//  FileName;
-//}
-
-
 
 @Metadata.layer: #CORE
 @UI: {
@@ -158,7 +41,9 @@ annotate view ZC_ANIME_HDR with
   @UI.lineItem: [{ position: 20, label: 'Title' }]
   @UI.identification: [{ position: 20, label: 'Title' }]
   Title;
-
+  
+  
+ @UI.hidden: #(IsActiveEntity)
   @UI.lineItem: [{ hidden: true }]
   @UI.identification: [{ position: 30, label: 'Anime Poster URL' }]
   ImageUrl;
